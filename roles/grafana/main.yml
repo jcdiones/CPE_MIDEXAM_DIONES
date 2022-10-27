@@ -1,0 +1,18 @@
+---
+
+- name: install grafana
+  dnf:
+    name: https://s3-us-west-2.amazonaws.com/grafana-releases/release//grafana-{{ version }}-1.x86_64.rpm
+    state: latest
+
+- name: "Grafana configuration file copy"
+  template:
+    src: "grafana.conf.j2"
+    dest: /etc/grafana/grafana.ini
+  notify: event_restart_grafana
+
+- name: "Grafana server started"
+  service:
+    name: grafana-server
+    enabled: true
+    state: started

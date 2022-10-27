@@ -1,0 +1,22 @@
+---
+
+- name: install lamp stack for CentOS servers
+  dnf:
+    name:
+      - httpd
+      - php
+    state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: install mariadb package (Centos)
+  tags: centos. db,mariadb
+  dnf:
+    name: mariadb-server
+    state: latest
+  when: ansible_distribution == "CentOS"
+
+- name: "Mariadb- Restarting/Enabling"
+  service:
+    name: mariadb
+    state: restarted
+    enbaled: true

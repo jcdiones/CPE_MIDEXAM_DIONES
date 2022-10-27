@@ -1,0 +1,22 @@
+---
+
+- name: install elastic search package
+  tags: ubuntu, elastic search
+  apt:
+    name: elastic search
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+   
+- name: install kibana package
+  tags: ubuntu, kibana
+  apt:
+    name: kibana
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: install logstash
+  tags: ubuntu, logstash
+  apt:
+    name: logstash
+    state: latest
+  when: ansible_distribution == "Ubuntu"

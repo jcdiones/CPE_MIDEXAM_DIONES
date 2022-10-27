@@ -1,0 +1,49 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: update repository index (Centos)
+    tags: always
+    dnf:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Centos"
+
+  - name: install updates (Ubuntu)
+    tags: always
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+
+- hosts: all
+  become: true
+  roles:
+    - base
+
+- hosts: elastic_search
+  become: true
+  roles:
+    - elastic_search
+
+- hosts: nagios
+  become: true
+  roles:
+    - nagios
+
+- hosts: grafana
+  become: true
+  roles:
+    - grafana
+
+- hosts: prometheus
+  become: true
+  roles:
+    - prometheus
+
+- hosts: lamp_stack
+  become: true
+  roles:
+    - lamp_stack
